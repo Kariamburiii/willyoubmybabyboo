@@ -32,6 +32,7 @@
         
         <div class="buttons" id="letter-buttons">
           <img src="yes.png" class="btn yes-btn" alt="Yes" />
+          
 
           <div class="no-wrapper">
             <img src="no.png" class="btn no-btn" alt="No" />
@@ -58,5 +59,24 @@
       </div>
     </div>
     <script src="script.js"></script>
+    <script>
+function startHearts() {
+  const heartEmojis = ['❤️', '💖', '💝', '💕', '💗'];
+  setInterval(() => {
+    const heart = document.createElement('div');
+    heart.classList.add('heart-fall');
+    heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 20 + "px";
+    heart.style.duration = Math.random() * 2 + 3 + "s";
+    heart.style.animationDuration = heart.style.duration;
+    document.body.appendChild(heart);
+    
+    // Remove heart after it falls to keep the site fast
+    setTimeout(() => { heart.remove(); }, 5000);
+  }, 300);
+}
+</script>
+
   </body>
 </html>

@@ -11,6 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet" />
     
     <style>
+      /* Smooth resizing for buttons */
+      .btn {
+        transition: transform 0.2s ease-in-out;
+      }
+
       /* Heart Animation Styles */
       .heart-fall {
         position: fixed;
@@ -40,11 +45,11 @@
         <img src="cat_heart.gif" class="cat" id="letter-cat" />
         
         <div class="buttons" id="letter-buttons">
-          <!-- Added onclick to trigger music and hearts -->
           <img src="yes.png" class="btn yes-btn" alt="Yes" id="yesButton" onclick="celebrate()" style="cursor: pointer;" />
           
           <div class="no-wrapper">
-            <img src="no.png" class="btn no-btn" alt="No" />
+            <!-- Added onclick here to trigger the resize function -->
+            <img src="no.png" class="btn no-btn" id="noButton" alt="No" onclick="handleNoClick()" style="cursor: pointer;" />
           </div>
         </div>
 
@@ -57,23 +62,34 @@
     <!-- Hidden YouTube Audio Player -->
     <div style="display:none;">
         <iframe id="valentine-music" width="0" height="0" 
-            src="https://www.youtube.com/embed/0m0veq3bo-s?si=2nk4qtPNWsoS8d5z"
+            src="https://www.youtube.com/embed/0m0veq3bo-s?si=2nk4qtPNWsoS8d5z" 
             allow="autoplay">
         </iframe>
     </div>
 
     <script src="script.js"></script>
     <script>
-      // Function to handle the Yes click
+      // Tracking sizes
+      let yesScale = 1;
+      let noScale = 1;
+
+      // Function for when "No" is clicked
+      function handleNoClick() {
+        yesScale += 0.3; // Grows by 30%
+        noScale -= 0.1;  // Shrinks by 10%
+        
+        if (noScale < 0.3) noScale = 0.3; // Prevents "No" from vanishing
+
+        document.getElementById('yesButton').style.transform = `scale(${yesScale})`;
+        document.getElementById('noButton').style.transform = `scale(${noScale})`;
+        
+        // If your script.js has a move function, it will still work alongside this!
+      }
+
       function celebrate() {
-        // 1. Start the music
         var iframe = document.getElementById('valentine-music');
         iframe.src += "&autoplay=1";
-
-        // 2. Start the hearts
         startHearts();
-
-        // 3. Show the final text (optional, since it's in your HTML)
         document.getElementById('final-text').style.display = "block";
         document.getElementById('letter-buttons').style.display = "none";
       }
@@ -89,11 +105,9 @@
           const duration = Math.random() * 2 + 3;
           heart.style.animationDuration = duration + "s";
           document.body.appendChild(heart);
-          
           setTimeout(() => { heart.remove(); }, 5000);
         }, 300);
       }
     </script>
   </body>
 </html>
-

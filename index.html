@@ -15,22 +15,6 @@
     <title>Document</title>
   </head>
   <body>
-    <!-- Hidden YouTube Audio Player -->
-<div style="display:none;">
-    <iframe id="valentine-music" width="0" height="0" 
-        src="https://www.youtube.com/embed/0m0veq3bo-s"
-        enablejsapi=1
-        allow="autoplay">
-    </iframe>
-</div>
-
-<script>
-  // This plays the music as soon as they click ANY button (like 'Yes')
-  document.addEventListener('click', function() {
-    var iframe = document.getElementById('valentine-music');
-    iframe.src += "&autoplay=1";
-  }, { once: true }); // 'once: true' ensures it only triggers on the first click
-</script>
     
     <!-- Envelope Screen -->
     <div id="envelope-container">
@@ -53,6 +37,20 @@
             <img src="no.png" class="btn no-btn" alt="No" />
           </div>
         </div>
+        <style>
+  .heart-fall {
+    position: fixed;
+    top: -5vh;
+    user-select: none;
+    pointer-events: none;
+    z-index: 9999;
+    animation: fall linear forwards;
+  }
+  @keyframes fall {
+    to { transform: translateY(105vh) rotate(360deg); }
+  }
+</style>
+
 
         <p id="final-text" class="final-text" style="display: none">
           <strong>Valentine date:</strong>Saturday,14th January,2026 at 7pm EST.

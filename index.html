@@ -3,16 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="style.css" />
-    <title>Valentine Letter</title>
+    <title>Will you be my babyboo?</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Aldrich&family=Pixelify+Sans:wght@400..700&display=swap"
-      rel="stylesheet"
-    />
-    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet" />
+    
+    <style>
+      /* Heart Animation Styles */
+      .heart-fall {
+        position: fixed;
+        top: -5vh;
+        user-select: none;
+        pointer-events: none;
+        z-index: 9999;
+        animation: fall linear forwards;
+      }
+      @keyframes fall {
+        to { transform: translateY(105vh) rotate(360deg); }
+      }
+    </style>
   </head>
   <body>
     
@@ -26,57 +37,63 @@
     <div id="letter-container">
       <div class="letter-window">
         <h1 id="letter-title">Will you be my babyboo?</h1>
-      
-
-         <img src="cat_heart.gif" class="cat" id="letter-cat" />
+        <img src="cat_heart.gif" class="cat" id="letter-cat" />
         
         <div class="buttons" id="letter-buttons">
-          <img src="yes.png" class="btn yes-btn" alt="Yes" />
+          <!-- Added onclick to trigger music and hearts -->
+          <img src="yes.png" class="btn yes-btn" alt="Yes" id="yesButton" onclick="celebrate()" style="cursor: pointer;" />
           
-
           <div class="no-wrapper">
             <img src="no.png" class="btn no-btn" alt="No" />
           </div>
         </div>
-        <style>
-  .heart-fall {
-    position: fixed;
-    top: -5vh;
-    user-select: none;
-    pointer-events: none;
-    z-index: 9999;
-    animation: fall linear forwards;
-  }
-  @keyframes fall {
-    to { transform: translateY(105vh) rotate(360deg); }
-  }
-</style>
-
 
         <p id="final-text" class="final-text" style="display: none">
-          <strong>Valentine date:</strong>Saturday,14th January,2026 at 7pm EST.
+          <strong>Valentine date:</strong> Saturday, 14th February, 2026 at 7pm EST.
         </p>
       </div>
     </div>
+
+    <!-- Hidden YouTube Audio Player -->
+    <div style="display:none;">
+        <iframe id="valentine-music" width="0" height="0" 
+            src="https://www.youtube.com" 
+            allow="autoplay">
+        </iframe>
+    </div>
+
     <script src="script.js"></script>
     <script>
-function startHearts() {
-  const heartEmojis = ['❤️', '💖', '💝', '💕', '💗'];
-  setInterval(() => {
-    const heart = document.createElement('div');
-    heart.classList.add('heart-fall');
-    heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = Math.random() * 20 + 20 + "px";
-    heart.style.duration = Math.random() * 2 + 3 + "s";
-    heart.style.animationDuration = heart.style.duration;
-    document.body.appendChild(heart);
-    
-    // Remove heart after it falls to keep the site fast
-    setTimeout(() => { heart.remove(); }, 5000);
-  }, 300);
-}
-</script>
+      // Function to handle the Yes click
+      function celebrate() {
+        // 1. Start the music
+        var iframe = document.getElementById('valentine-music');
+        iframe.src += "&autoplay=1";
 
+        // 2. Start the hearts
+        startHearts();
+
+        // 3. Show the final text (optional, since it's in your HTML)
+        document.getElementById('final-text').style.display = "block";
+        document.getElementById('letter-buttons').style.display = "none";
+      }
+
+      function startHearts() {
+        const heartEmojis = ['❤️', '💖', '💝', '💕', '💗'];
+        setInterval(() => {
+          const heart = document.createElement('div');
+          heart.classList.add('heart-fall');
+          heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.fontSize = Math.random() * 20 + 20 + "px";
+          const duration = Math.random() * 2 + 3;
+          heart.style.animationDuration = duration + "s";
+          document.body.appendChild(heart);
+          
+          setTimeout(() => { heart.remove(); }, 5000);
+        }, 300);
+      }
+    </script>
   </body>
 </html>
+

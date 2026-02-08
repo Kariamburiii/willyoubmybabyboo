@@ -15,6 +15,22 @@
     <title>Document</title>
   </head>
   <body>
+    <!-- Hidden YouTube Audio Player -->
+<div style="display:none;">
+    <iframe id="valentine-music" width="0" height="0" 
+        src="https://www.youtube.com/embed/0m0veq3bo-s"
+        enablejsapi=1
+        allow="autoplay">
+    </iframe>
+</div>
+
+<script>
+  // This plays the music as soon as they click ANY button (like 'Yes')
+  document.addEventListener('click', function() {
+    var iframe = document.getElementById('valentine-music');
+    iframe.src += "&autoplay=1";
+  }, { once: true }); // 'once: true' ensures it only triggers on the first click
+</script>
     
     <!-- Envelope Screen -->
     <div id="envelope-container">
